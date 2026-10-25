@@ -1,0 +1,25 @@
+name: Validar HTML
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar HTMLHint
+        run: npm install --global htmlhint
+
+      - name: Analisar arquivos HTML
+        run: htmlhint "**/*.html"
